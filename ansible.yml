@@ -11,6 +11,9 @@
   - name: website
     shell: echo "hello vagrant" > /usr/share/nginx/html/index.html
 
+  - name: health endpoint
+    shell: echo "OK" > /usr/share/nginx/html/health.html
+
   - name: start nginx
     systemd:
       name: nginx
@@ -21,24 +24,27 @@
   hosts: haproxy
 
   tasks:
-  - name: install keepalived
-    yum:
-      name: keepalived
-      state: latest
   - name: install haproxy
     yum:
       name: haproxy
       state: latest
-#configure keepalived
-#configure haproxy
-  - name: start keepalived
-    systemd:
-      name: keepalived
-      state: started
-      enabled: yes  
+  - name: haproxy config
+    template:
+      src: haproxy.j2
+      dest: /etc/haproxy/haproxy.cfg
   - name: start haproxy
     systemd:
       name: haproxy
+      state: started
+      enabled: yes  
+  - name: install keepalived
+    yum:
+      name: keepalived
+      state: latest
+#configure keepalived
+  - name: start keepalived
+    systemd:
+      name: keepalived
       state: started
       enabled: yes  
 

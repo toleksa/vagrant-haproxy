@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PUB_IP_CLASS="192.168.0.21"
+
 ./install-vagrant.sh
 vagrant up
 ./generate-inventory.sh
