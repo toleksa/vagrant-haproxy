@@ -1,28 +1,44 @@
 ---
 - name: deploy web
   hosts: web
-  remote_user: vagrant
 
   tasks:
   - name: install nginx
     yum:
       name: nginx
       state: latest
-    become: true
-    become_method: sudo
 
   - name: website
     shell: echo "hello vagrant" > /usr/share/nginx/html/index.html
-    become: true
-    become_method: sudo
 
   - name: start nginx
     systemd:
       name: nginx
       state: started
       enabled: yes
-    become: true
-    become_method: sudo
 
+- name: deploy haproxy
+  hosts: haproxy
 
+  tasks:
+  - name: install keepalived
+    yum:
+      name: keepalived
+      state: latest
+  - name: install haproxy
+    yum:
+      name: haproxy
+      state: latest
+#configure keepalived
+#configure haproxy
+  - name: start keepalived
+    systemd:
+      name: keepalived
+      state: started
+      enabled: yes  
+  - name: start haproxy
+    systemd:
+      name: haproxy
+      state: started
+      enabled: yes  
 
