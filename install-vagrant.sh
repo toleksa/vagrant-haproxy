@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -e
 
 yum -y update
 yum install -y libvirt libvirt-devel ruby-devel gcc qemu-kvm libguestfs-tools make rsync
