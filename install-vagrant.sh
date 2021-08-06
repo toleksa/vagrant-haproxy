@@ -3,7 +3,7 @@
 set -e
 
 yum -y update
-yum install -y libvirt libvirt-devel ruby-devel gcc qemu-kvm libguestfs-tools make rsync
+yum install -y libvirt libvirt-devel ruby-devel gcc qemu-kvm libguestfs-tools make rsync bridge-utils
 systemctl start libvirtd
 systemctl enable libvirtd
 yum install -y yum-utils
