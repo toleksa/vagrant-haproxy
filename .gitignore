@@ -1,4 +1,4 @@
 .vagrant/
 inventory
-haproxy.cfg
 haproxy.j2
+keepalived.j2

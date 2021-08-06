@@ -34,3 +34,5 @@ echo $HOSTS_WEB | sed -e 's/|/\n/g' >> inventory
 
 rm temp-inventory
 
+sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-keepalived.conf > keepalived.j2
+

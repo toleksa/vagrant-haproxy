@@ -41,7 +41,17 @@
     yum:
       name: keepalived
       state: latest
-#configure keepalived
+  - name: sysctl nonlocal_bind=1
+    sysctl:
+      name: net.ipv4.ip_nonlocal_bind
+      value: 1
+      sysctl_set: yes
+      state: present
+      reload: yes
+  - name: keepalived config
+    template:
+      src: keepalived.j2
+      dest: /etc/keepalived/keepalived.conf
   - name: start keepalived
     systemd:
       name: keepalived
