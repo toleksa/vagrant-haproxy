@@ -13,7 +13,7 @@ HOSTS_WEB="[web]|"
 
 HA_COUNTER=0
 WEB_COUNTER=0
-cp template-haproxy.cfg haproxy.j2
+sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-haproxy.cfg > haproxy.j2
 while read LINE; do
     NAME=`echo $LINE | gawk '{ print $1 }'`
     IP=`echo $LINE | gawk '{ print $2 }'`
