@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
       config.vm.hostname = "ha#{n}"
       config.vm.box = "centos/8"
       config.vm.box_check_update = false
-      config.vm.network "public_network", ip: "#{PUB_IP_CLASS}#{n}", dev: "virbr0", bridge: "virbr0"
+      config.vm.network "public_network", ip: "#{PUB_IP_CLASS}#{n}", type: "bridge", dev: "br0", mode: "bridge"
       config.vm.provider :libvirt do |v|
         v.memory = 512
       end

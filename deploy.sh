@@ -3,6 +3,8 @@
 export PUB_IP_CLASS="192.168.0.21"
 
 ./install-vagrant.sh
+brctl addbr br0
+brctl addif br0 enp0s3
 vagrant up
 ./generate-inventory.sh
 yum install -y ansible
