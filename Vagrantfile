@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "~/.ssh/authorized_keys"
+  config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "/root/.ssh/authorized_keys"
 
   config.vm.define "ha02" do |config|
   config.vm.hostname = "ha02"
@@ -28,6 +29,7 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "~/.ssh/authorized_keys"
+  config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "/root/.ssh/authorized_keys"
 
   config.vm.define "web" do |config|
   config.vm.hostname = "web"
@@ -38,6 +40,7 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "~/.ssh/authorized_keys"
+  config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "/root/.ssh/authorized_keys"
 
 end
 

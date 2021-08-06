@@ -1,0 +1,28 @@
+---
+- name: deploy web
+  hosts: web
+  remote_user: vagrant
+
+  tasks:
+  - name: install nginx
+    yum:
+      name: nginx
+      state: latest
+    become: true
+    become_method: sudo
+
+  - name: website
+    shell: echo "hello vagrant" > /usr/share/nginx/html/index.html
+    become: true
+    become_method: sudo
+
+  - name: start nginx
+    systemd:
+      name: nginx
+      state: started
+      enabled: yes
+    become: true
+    become_method: sudo
+
+
+
