@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$WOLRD_IFACE" == '' ]; then
+if [ "$WORLD_IFACE" == '' ]; then
     echo "ERR: WORLD_IFACE not set"
     echo "example: export WORLD_IFACE=enp0s3"
     exit 1
@@ -46,5 +46,5 @@ DEFROUTE=yes
 EOF
 
 nmcli connection reload
-nmcli connection down eth0 && nmcli connection up eth0
+nmcli connection down $WORLD_IFACE && nmcli connection up $WORLD_IFACE
 
