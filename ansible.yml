@@ -20,6 +20,8 @@
       state: started
       enabled: yes
 
+
+
 - name: deploy haproxy
   hosts: haproxy
 
