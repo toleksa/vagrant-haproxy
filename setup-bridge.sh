@@ -3,6 +3,11 @@
 # setup front bridge br0 which will be used as public access on haproxy
 #
 
+if [ -d "/sys/class/net/br0" ]; then
+    echo "br0 already exists, skipping"
+    exit 0
+fi
+
 if [ "$WORLD_IFACE" == '' ]; then
     echo "ERR: WORLD_IFACE not set"
     echo "example: export WORLD_IFACE=enp0s3"
