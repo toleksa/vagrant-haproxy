@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# setup front bridge br0 which will be used as public access on haproxy
+#
 
 if [ "$WORLD_IFACE" == '' ]; then
     echo "ERR: WORLD_IFACE not set"
