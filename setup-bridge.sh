@@ -23,8 +23,8 @@ yum install -y bridge-utils
 cp /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE} /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE}-orig
 
 cat >/etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE} <<'EOF'
-DEVICE=eth0
-NAME=eth0
+DEVICE=${WORLD_IFACE}
+NAME=${WORLD_IFACE}
 NM_CONTROLLED=yes
 ONBOOT=yes
 TYPE=Ethernet
