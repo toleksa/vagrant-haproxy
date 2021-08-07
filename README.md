@@ -1,5 +1,10 @@
 # vagrant-haproxy
-Vagrant + Ansible for automatic haproxy and webserver deployment
+Automatic haproxy and webserver deployment
+* Configure network bridge
+* Install Vagrant (including workaround for "undefined symbol: EVP_KDF_ctrl" bug)
+* Vagrant deploys VMs
+* Based on infrastructure generate config files and inventory for Ansible
+* Ansible installs and configures services
 
 ## Configuration
 ### deploy.sh:
