@@ -47,5 +47,5 @@ DEFROUTE=yes
 EOF
 
 nmcli connection reload
-nmcli connection down $WORLD_IFACE && nmcli connection up $WORLD_IFACE
+nmcli connection down $WORLD_IFACE && nmcli connection up br0
 
