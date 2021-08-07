@@ -28,10 +28,12 @@
     yum:
       name: haproxy
       state: latest
+      
   - name: haproxy config
     template:
       src: haproxy.j2
       dest: /etc/haproxy/haproxy.cfg
+      
   - name: sysctl nonlocal_bind=1
     sysctl:
       name: net.ipv4.ip_nonlocal_bind
@@ -39,22 +41,26 @@
       sysctl_set: yes
       state: present
       reload: yes
+      
   - name: start haproxy
     systemd:
       name: haproxy
-      state: started
-      enabled: yes  
+      state: restarted
+      enabled: yes
+      
   - name: install keepalived
     yum:
       name: keepalived
       state: latest
+      
   - name: keepalived config
     template:
       src: keepalived.j2
       dest: /etc/keepalived/keepalived.conf
+      
   - name: start keepalived
     systemd:
       name: keepalived
-      state: started
+      state: restarted
       enabled: yes  
 
