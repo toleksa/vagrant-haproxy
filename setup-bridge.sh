@@ -6,7 +6,7 @@ if [ "$WORLD_IFACE" == '' ]; then
     exit 1
 fi
 
-MAC=`ip address show dev $WOLRD_IFACE | awk '$1=="link/ether" {print $2}'`
+MAC=`ip address show $WOLRD_IFACE | awk '$1=="link/ether" {print $2}'`
 
 cat >/etc/sysctl.d/bridge.conf <<'EOF'
 net.bridge.bridge-nf-call-ip6tables=0
