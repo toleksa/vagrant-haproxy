@@ -12,17 +12,9 @@ Automatic haproxy and webserver deployment
 
 ```export WORLD_IFACE="enp0s3"```   which network card is connected to world
 
-### Vagrantfile:
+```export HA_NODES="2"``` How many Haproxy nodes deploy
 
-Optionally adjust number of Haproxy and Web nodes, default 2xHaproxy and 3xWeb
-```  
-(1..2).each do |n|
-    config.vm.define "ha#{n}" do |config|
-```
-```
-(1..3).each do |n|
-    config.vm.define "web#{n}" do |config|
-```
+```export WEB_NODES="3"``` How many Webservers deploy
 
 ## Launch
 
