@@ -23,14 +23,15 @@ yum install -y bridge-utils
 cp /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE} /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE}-orig
 
 cat >/etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE} <<'EOF'
-DEVICE=${WORLD_IFACE}
-NAME=${WORLD_IFACE}
+DEVICE=#WORLD_IFACE#
+NAME=#WORLD_IFACE#
 NM_CONTROLLED=yes
 ONBOOT=yes
 TYPE=Ethernet
 BRIDGE=br0
 EOF
 
+sed -i "s/#WORLD_IFACE#/${WORLD_IFACE}/g" /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE}
 echo "HWADDR=$MAC" >> /etc/sysconfig/network-scripts/ifcfg-${WORLD_IFACE}
 
 cat >/etc/sysconfig/network-scripts/ifcfg-br0 <<'EOF'
