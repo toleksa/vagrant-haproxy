@@ -1,10 +1,19 @@
 #!/bin/bash
+#
+# generates config and inventory for ansible:
+# - inventory
+# - haproxy.j2
+# - keepalived.j2
+# (actually in reverse order :) )
 
 if [ "$PUB_IP_CLASS" == '' ]; then 
     echo "ERR: PUB_IP_CLASS not set"
     echo "example: export PUB_IP_CLASS=192.168.0.21"
     exit 1
 fi
+
+sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-keepalived.conf > keepalived.j2
+sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-haproxy.cfg > haproxy.j2
 
 vagrant ssh-config | grep -E "^Host|HostName " | tr '\n' ' ' | sed -e 's/HostName//g' | sed -e 's/Host/\n/g' | grep -Ev '^$' > temp-inventory
 
@@ -13,7 +22,6 @@ HOSTS_WEB="[web]|"
 
 HA_COUNTER=0
 WEB_COUNTER=0
-sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-haproxy.cfg > haproxy.j2
 while read LINE; do
     NAME=`echo $LINE | gawk '{ print $1 }'`
     IP=`echo $LINE | gawk '{ print $2 }'`
@@ -29,10 +37,8 @@ while read LINE; do
     fi
 done < temp-inventory
 
+rm -rf temp-inventory
+
 echo $HOSTS_HA | sed -e 's/|/\n/g' > inventory
 echo $HOSTS_WEB | sed -e 's/|/\n/g' >> inventory
-
-rm temp-inventory
-
-sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-keepalived.conf > keepalived.j2
 
