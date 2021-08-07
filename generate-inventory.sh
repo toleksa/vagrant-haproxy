@@ -1,10 +1,7 @@
 #!/bin/bash
 #
-# generates config and inventory for ansible:
-# - inventory
-# - haproxy.j2
-# - keepalived.j2
-# (actually in reverse order :) )
+# generates inventory and haproxy.j2 for ansible
+#
 
 if [ "$PUB_IP_CLASS" == '' ]; then 
     echo "ERR: PUB_IP_CLASS not set"
@@ -12,10 +9,7 @@ if [ "$PUB_IP_CLASS" == '' ]; then
     exit 1
 fi
 
-sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-keepalived.conf > keepalived.j2
-sed -e "s/#PUB_IP_CLASS#/${PUB_IP_CLASS}0/" template-haproxy.cfg > haproxy.j2
-
-vagrant ssh-config | grep -E "^Host|HostName " | tr '\n' ' ' | sed -e 's/HostName//g' | sed -e 's/Host/\n/g' | grep -Ev '^$' > temp-inventory
+cp template-haproxy.cfg haproxy.j2
 
 HOSTS_HA="[haproxy]|"
 HOSTS_WEB="[web]|"
@@ -28,17 +22,16 @@ while read LINE; do
 
     if echo $LINE | grep -E "^ha" > /dev/null; then
         HA_COUNTER=$((HA_COUNTER+1))
-        HOSTS_HA="${HOSTS_HA}${IP} num=${HA_COUNTER} public_ip=${PUB_IP_CLASS}${HA_COUNTER}|"
+        HOSTS_HA="${HOSTS_HA}${IP} pri=${HA_COUNTER} node_public_ip=${PUB_IP_CLASS}${HA_COUNTER}|"
     fi
     if echo $LINE | grep -E "^web" > /dev/null; then
         WEB_COUNTER=$((WEB_COUNTER + 1))
         HOSTS_WEB="${HOSTS_WEB}${IP}|"
         echo "       server web${WEB_COUNTER} ${IP}:80 check" >> haproxy.j2
     fi
-done < temp-inventory
-
-rm -rf temp-inventory
+done < <(vagrant ssh-config | grep -E "^Host|HostName " | tr '\n' ' ' | sed -e 's/HostName//g' | sed -e 's/Host/\n/g' | grep -Ev '^$')
 
 echo $HOSTS_HA | sed -e 's/|/\n/g' > inventory
+echo -e "[haproxy:vars]\nfront_public_ip=${PUB_IP_CLASS}0\n\n" >> inventory
 echo $HOSTS_WEB | sed -e 's/|/\n/g' >> inventory
 
