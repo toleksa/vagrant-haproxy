@@ -5,7 +5,7 @@
 
 if [ "$PUB_IP_CLASS" == '' ]; then 
     echo "ERR: PUB_IP_CLASS not set"
-    echo "example: export PUB_IP_CLASS=192.168.0.21"
+    echo "example: export PUB_IP_CLASS=192.168.1.21"
     exit 1
 fi
 
