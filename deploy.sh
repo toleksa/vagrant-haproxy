@@ -8,6 +8,9 @@ set -e
 export PUB_IP_CLASS="192.168.1.21"
 export WORLD_IFACE="enp0s3"
 
+export HA_NODES="2"
+export WEB_NODES="3"
+
 ./setup-bridge.sh
 ./install-vagrant.sh
 vagrant up

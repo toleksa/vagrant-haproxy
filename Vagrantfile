@@ -4,11 +4,13 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
 ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
-PUB_IP_CLASS=ENV['PUB_IP_CLASS']
+PUB_IP_CLASS=ENV["PUB_IP_CLASS"]
+HA_NODES=ENV["HA_NODES"] || 2
+WEB_NODES=ENV["WEB_NODES"] || 3
 
 Vagrant.configure("2") do |config|
 
-  (1..2).each do |n|
+  (1..HA_NODES.to_i).each do |n|
     config.vm.define "ha#{n}" do |config|
       config.vm.hostname = "ha#{n}"
       config.vm.box = "centos/8"
@@ -24,7 +26,7 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  (1..3).each do |n|
+  (1..WEB_NODES.to_i).each do |n|
     config.vm.define "web#{n}" do |config|
       config.vm.hostname = "web#{n}"
       config.vm.box = "centos/8"
