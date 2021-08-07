@@ -61,9 +61,11 @@ function _bugs-centos83 {
     cd $OLDDIR ; unset OLDPWD
 }
 
-_bugs-centos83
-#export CONFIGURE_ARGS="with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64"
-vagrant plugin install vagrant-libvirt
+if ! vagrant plugin list | grep libvirt > /dev/null 2>&1; then
+    _bugs-centos83
+    #export CONFIGURE_ARGS="with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64"
+    vagrant plugin install vagrant-libvirt
+fi
 
 vagrant plugin list
 
