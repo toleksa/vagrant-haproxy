@@ -19,3 +19,8 @@ Automatic haproxy and webserver deployment
 ## Launch
 
 ```./deploy.sh``` (and go for coffee :) )
+
+## TODO
+Define net bridge in Vagrant
+Separate routing table for public interfaces
+
