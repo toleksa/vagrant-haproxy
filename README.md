@@ -8,7 +8,7 @@ Automatic haproxy and webserver deployment
 
 ## Configuration
 ### deploy.sh:
-```export PUB_IP_CLASS="192.168.1.21"```  AppLB will bind on 192.168.1.21**0** and stats pages will be available on 192.168.1.21**n** for each haproxy node
+```export PUB_IP_CLASS="192.168.0.21"```  AppLB will bind on 192.168.1.21**0** and stats pages will be available on 192.168.1.21**n** for each haproxy node
 
 ```export PUB_GATEWAY="192.168.0.1"``` Gateway for public interfaces
 
