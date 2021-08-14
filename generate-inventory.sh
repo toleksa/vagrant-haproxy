@@ -5,9 +5,16 @@
 
 if [ "$PUB_IP_CLASS" == '' ]; then 
     echo "ERR: PUB_IP_CLASS not set"
-    echo "example: export PUB_IP_CLASS=192.168.1.21"
+    echo "example: export PUB_IP_CLASS=192.168.0.21"
     exit 1
 fi
+
+if [ "$PUB_GATEWAY" == '' ]; then
+    echo "ERR: PUB_GATEWAY not set"
+    echo "example: export PUB_GATEWAY=192.168.0.1"
+    exit 1
+fi
+
 
 cp template-haproxy.cfg haproxy.j2
 
@@ -22,7 +29,7 @@ while read LINE; do
 
     if echo $LINE | grep -E "^ha" > /dev/null; then
         HA_COUNTER=$((HA_COUNTER+1))
-        HOSTS_HA="${HOSTS_HA}${IP} pri=${HA_COUNTER} node_public_ip=${PUB_IP_CLASS}${HA_COUNTER}|"
+        HOSTS_HA="${HOSTS_HA}${IP} pri=${HA_COUNTER} node_public_ip=${PUB_IP_CLASS}${HA_COUNTER} gw=${PUB_GATEWAY}|"
     fi
     if echo $LINE | grep -E "^web" > /dev/null; then
         WEB_COUNTER=$((WEB_COUNTER + 1))

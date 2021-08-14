@@ -26,6 +26,18 @@
   hosts: haproxy
 
   tasks:
+  - name: rt_tables entry
+    lineinfile:
+      path: /etc/iproute2/rt_tables
+      line: "200 public"
+
+  - name: ip route
+    shell: >
+        ip route flush table public
+        ; ip rule delete table public 
+        ; ip rule add dev eth1 table public priority 1
+        && ip route add default via {{ gw }} dev eth1 table public
+
   - name: install haproxy
     yum:
       name: haproxy

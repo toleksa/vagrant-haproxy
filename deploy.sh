@@ -5,7 +5,8 @@
 
 set -e
 
-export PUB_IP_CLASS="192.168.1.21"
+export PUB_IP_CLASS="192.168.0.21"
+export PUB_GATEWAY="192.168.0.1"
 export WORLD_IFACE="enp0s3"
 
 export HA_NODES="2"
