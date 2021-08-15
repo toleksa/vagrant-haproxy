@@ -22,7 +22,6 @@ Vagrant.configure("2") do |config|
       config.vm.provision "file", source: "~/.ssh/authorized_keys", destination: "~/.ssh/authorized_keys-additional"
       config.vm.provision "shell", inline: "cat ~/.ssh/authorized_keys-additional >> ~/.ssh/authorized_keys ; rm -rf ~/.ssh/authorized_keys-additional", privileged: false
       config.vm.provision "shell", inline: 'mkdir -p /root/.ssh ; cat /home/vagrant/.ssh/authorized_keys > /root/.ssh/authorized_keys'
-      config.vm.provision "shell", inline: 'yum install -y psmisc'
     end
   end
 

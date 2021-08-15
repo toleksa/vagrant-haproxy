@@ -42,6 +42,11 @@
     yum:
       name: haproxy
       state: latest
+
+  - name: install psmisc
+    yum:
+      name: psmisc
+      state: latest
       
   - name: haproxy config
     template:
