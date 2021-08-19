@@ -26,6 +26,7 @@ Automatic haproxy and webserver deployment
 
 * Define net bridge in Vagrant
 * Separate routing table for public interfaces
+* 
 
 
 
