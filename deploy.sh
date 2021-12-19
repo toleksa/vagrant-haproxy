@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# starting point fro deployment - fire&forget
+# starting point for deployment - fire&forget
 #
 
 set -e
